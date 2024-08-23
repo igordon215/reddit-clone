@@ -1,16 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
     <header>
-      <h1>Reddit Clone</h1>
+      <h1>Tidder</h1>
       <nav>
         <ul>
           <li>
-            <a href="/">Home</a>
+            <Link to="/">Home</Link>
           </li>
           <li>
-            <a href="/subreddits">Subreddits</a>
+            <Link to="/tidders">Tidders</Link>
           </li>
         </ul>
       </nav>
