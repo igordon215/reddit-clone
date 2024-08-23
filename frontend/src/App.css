@@ -45,6 +45,23 @@ nav ul li a {
   margin-bottom: 1rem;
 }
 
-.subreddit-list {
+.tidder-list {
+  flex: 1;
+}
+
+.tidder-page {
+  width: 100%;
+}
+
+.home {
+  display: flex;
+  width: 100%;
+}
+
+.home .post-list {
+  flex: 2;
+}
+
+.home .tidder-list {
   flex: 1;
 }
