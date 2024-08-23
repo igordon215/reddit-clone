@@ -1,0 +1,42 @@
+{
+  "annotations": {
+    "changelogDate": "20230621000003"
+  },
+  "applications": "*",
+  "changelogDate": "20230621000003",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "vote",
+  "fields": [
+    {
+      "fieldName": "voteType",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Vote",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityField": "login",
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "vote",
+      "relationshipName": "user",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityField": "title",
+      "otherEntityName": "post",
+      "otherEntityRelationshipName": "votes",
+      "relationshipName": "post",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

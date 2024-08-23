@@ -17,7 +17,7 @@
     "enableHibernateCache": true,
     "enableSwaggerCodegen": false,
     "enableTranslation": false,
-    "entities": [],
+    "entities": ["Subreddit", "Post", "Comment", "Vote"],
     "feignClient": null,
     "jhipsterVersion": "8.6.0",
     "jwtSecretKey": "MzIwYTU3MTU4NmJlMzQ5NGM1NGNkY2M0YTVhZGQ4YmRkZDA3NDRjMmMxNGY1NDQ5YWFlMWJlZDEyYTRhZjI4ZTk4MWNlMGIwOTkxMjc1ZDJiZmQ4NjE5YmVkZDhhMTFkNWRjZDYwNmVlYjEzYTM4YzdjYjBjMjZkOTdiMTQ2Zjc=",
