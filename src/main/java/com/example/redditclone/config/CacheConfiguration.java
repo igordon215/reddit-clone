@@ -50,13 +50,6 @@ public class CacheConfiguration {
             createCache(cm, com.example.redditclone.domain.User.class.getName());
             createCache(cm, com.example.redditclone.domain.Authority.class.getName());
             createCache(cm, com.example.redditclone.domain.User.class.getName() + ".authorities");
-            createCache(cm, com.example.redditclone.domain.Subreddit.class.getName());
-            createCache(cm, com.example.redditclone.domain.Subreddit.class.getName() + ".posts");
-            createCache(cm, com.example.redditclone.domain.Post.class.getName());
-            createCache(cm, com.example.redditclone.domain.Post.class.getName() + ".comments");
-            createCache(cm, com.example.redditclone.domain.Post.class.getName() + ".votes");
-            createCache(cm, com.example.redditclone.domain.Comment.class.getName());
-            createCache(cm, com.example.redditclone.domain.Vote.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }
