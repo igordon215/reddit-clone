@@ -133,3 +133,50 @@ export const voteOnPost = async (postId, voteType) => {
     throw error;
   }
 };
+
+export const fetchPost = async postId => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/posts/${postId}`, {
+      headers: getHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching post:', error);
+    throw error;
+  }
+};
+
+export const fetchComments = async postId => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/comments?postId=${postId}`, {
+      headers: getHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching comments:', error);
+    throw error;
+  }
+};
+
+export const createComment = async (postId, content) => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/comments`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify({ postId, content }),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating comment:', error);
+    throw error;
+  }
+};

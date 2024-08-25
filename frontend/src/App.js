@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import Header from './components/Header';
 import Home from './pages/Home';
 import SubredditPage from './pages/SubredditPage';
+import PostPage from './pages/PostPage';
 import Login from './components/Login';
 import { logout } from './api';
 import './App.css';
@@ -34,6 +35,7 @@ function App() {
           <Routes>
             <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" replace />} />
             <Route path="/r/:subredditName" element={isAuthenticated ? <SubredditPage /> : <Navigate to="/login" replace />} />
+            <Route path="/post/:postId" element={isAuthenticated ? <PostPage /> : <Navigate to="/login" replace />} />
             <Route path="/login" element={!isAuthenticated ? <Login onLogin={handleLogin} /> : <Navigate to="/" replace />} />
           </Routes>
         </div>

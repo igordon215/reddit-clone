@@ -1,6 +1,8 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f2f5;
+  background-color: #dae0e6;
+  margin: 0;
+  padding: 0;
 }
 
 .App {
@@ -12,7 +14,7 @@ body {
 header {
   background-color: #ff4500;
   color: white;
-  padding: 1rem;
+  padding: 10px 20px;
   margin-bottom: 20px;
 }
 
@@ -27,58 +29,117 @@ header nav ul {
 
 header nav ul li {
   display: inline;
-  margin-right: 1rem;
+  margin-right: 20px;
 }
 
-header nav ul li a {
+header nav ul li a,
+header nav ul li button {
   color: white;
   text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 }
 
 .content {
   display: flex;
-  flex-wrap: wrap;
 }
 
-.post-list {
+.home {
+  display: flex;
+}
+
+.posts {
   flex: 2;
   margin-right: 20px;
 }
 
-.subreddit-list {
+.subreddits {
   flex: 1;
   background-color: white;
-  padding: 1rem;
-  border-radius: 4px;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24);
+  padding: 20px;
+  border-radius: 5px;
 }
 
 .post {
   background-color: white;
-  border: 1px solid #dee2e6;
-  border-radius: 4px;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  box-shadow:
-    0 1px 3px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.24);
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 15px;
 }
 
-.vote-buttons {
-  display: flex;
-  align-items: center;
+.post h3 {
+  margin-top: 0;
 }
 
-.vote-buttons button {
-  background-color: #f8f9fa;
-  border: 1px solid #ced4da;
-  padding: 0.25rem 0.5rem;
-  margin: 0 0.5rem;
+.post h3 a {
+  color: #1a1a1b;
+  text-decoration: none;
+}
+
+.post h3 a:hover {
+  text-decoration: underline;
+}
+
+.subreddits ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.subreddits li {
+  margin-bottom: 10px;
+}
+
+.subreddits a {
+  color: #1a1a1b;
+  text-decoration: none;
+}
+
+.subreddits a:hover {
+  text-decoration: underline;
+}
+
+.login-form,
+.register-form {
+  max-width: 400px;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.login-form h2,
+.register-form h2 {
+  margin-top: 0;
+}
+
+.login-form input,
+.register-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.login-form button,
+.register-form button {
+  background-color: #ff4500;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
   cursor: pointer;
 }
 
-.vote-buttons span {
-  font-weight: bold;
+.login-form button:hover,
+.register-form button:hover {
+  background-color: #ff5722;
+}
+
+.error {
+  color: red;
+  margin-bottom: 10px;
 }

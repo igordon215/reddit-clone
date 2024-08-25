@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import PostList from '../components/PostList';
-import SubredditList from '../components/SubredditList';
+import { Link } from 'react-router-dom';
 import { fetchPosts, fetchSubreddits } from '../api';
 
 const Home = () => {
@@ -30,8 +29,31 @@ const Home = () => {
 
   return (
     <div className="home">
-      <PostList posts={posts} />
-      <SubredditList subreddits={subreddits} />
+      <div className="posts">
+        <h2>Latest Posts</h2>
+        {posts.map(post => (
+          <div key={post.id} className="post">
+            <h3>
+              <Link to={`/post/${post.id}`}>{post.title}</Link>
+            </h3>
+            <p>{post.content.substring(0, 100)}...</p>
+            <p>
+              Posted by {post.user.login} in <Link to={`/r/${post.subreddit.name}`}>{post.subreddit.name}</Link>
+            </p>
+            <p>Votes: {post.voteCount}</p>
+          </div>
+        ))}
+      </div>
+      <div className="subreddits">
+        <h2>Subreddits</h2>
+        <ul>
+          {subreddits.map(subreddit => (
+            <li key={subreddit.id}>
+              <Link to={`/r/${subreddit.name}`}>{subreddit.name}</Link>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
