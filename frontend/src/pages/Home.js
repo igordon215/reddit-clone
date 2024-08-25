@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { fetchPosts, fetchSubreddits } from '../api';
+import CreateSubreddit from '../components/CreateSubreddit';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -24,6 +25,10 @@ const Home = () => {
     fetchData();
   }, []);
 
+  const handleSubredditCreated = newSubreddit => {
+    setSubreddits([...subreddits, newSubreddit]);
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
 
@@ -44,15 +49,18 @@ const Home = () => {
           </div>
         ))}
       </div>
-      <div className="subreddits">
-        <h2>Subreddits</h2>
-        <ul>
-          {subreddits.map(subreddit => (
-            <li key={subreddit.id}>
-              <Link to={`/r/${subreddit.name}`}>{subreddit.name}</Link>
-            </li>
-          ))}
-        </ul>
+      <div className="sidebar">
+        <CreateSubreddit onSubredditCreated={handleSubredditCreated} />
+        <div className="subreddits">
+          <h2>Subreddits</h2>
+          <ul>
+            {subreddits.map(subreddit => (
+              <li key={subreddit.id}>
+                <Link to={`/r/${subreddit.name}`}>{subreddit.name}</Link>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
     </div>
   );

@@ -180,3 +180,20 @@ export const createComment = async (postId, content) => {
     throw error;
   }
 };
+
+export const createSubreddit = async subredditData => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/subreddits`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(subredditData),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating subreddit:', error);
+    throw error;
+  }
+};
