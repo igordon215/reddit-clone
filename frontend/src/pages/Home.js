@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import PostList from '../components/PostList';
-import TidderList from '../components/TidderList';
-import { fetchPosts, fetchTidders } from '../api';
+import SubredditList from '../components/SubredditList';
+import { fetchPosts, fetchSubreddits } from '../api';
 
 const Home = () => {
   const [posts, setPosts] = useState([]);
-  const [tidders, setTidders] = useState([]);
+  const [subreddits, setSubreddits] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [postsData, tiddersData] = await Promise.all([fetchPosts(), fetchTidders()]);
+        const [postsData, subredditsData] = await Promise.all([fetchPosts(), fetchSubreddits()]);
         setPosts(postsData);
-        setTidders(tiddersData);
+        setSubreddits(subredditsData);
         setLoading(false);
       } catch (err) {
         setError('Failed to fetch data');
@@ -31,7 +31,7 @@ const Home = () => {
   return (
     <div className="home">
       <PostList posts={posts} />
-      <TidderList tidders={tidders} />
+      <SubredditList subreddits={subreddits} />
     </div>
   );
 };
