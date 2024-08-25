@@ -24,6 +24,7 @@ const getHeaders = () => {
 
 export const login = async (username, password) => {
   try {
+    console.log('Attempting login with:', { username, password });
     const response = await fetch(`${API_BASE_URL}/authenticate`, {
       method: 'POST',
       headers: {
@@ -31,33 +32,21 @@ export const login = async (username, password) => {
       },
       body: JSON.stringify({ username, password, rememberMe: true }),
     });
+    console.log('Login response status:', response.status);
+    console.log('Login response headers:', response.headers);
+    const responseText = await response.text();
+    console.log('Login response text:', responseText);
+
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      throw new Error(`HTTP error! status: ${response.status}, response: ${responseText}`);
     }
-    const data = await response.json();
+
+    const data = JSON.parse(responseText);
+    console.log('Login successful, received data:', data);
     setAuthToken(data.id_token);
     return data;
   } catch (error) {
     console.error('Error logging in:', error);
-    throw error;
-  }
-};
-
-export const register = async (username, email, password) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/register`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ login: username, email, password }),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error registering:', error);
     throw error;
   }
 };

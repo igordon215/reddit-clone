@@ -4,7 +4,6 @@ import Header from './components/Header';
 import Home from './pages/Home';
 import SubredditPage from './pages/SubredditPage';
 import Login from './components/Login';
-import Register from './components/Register';
 import { logout } from './api';
 import './App.css';
 
@@ -36,10 +35,6 @@ function App() {
             <Route path="/" element={isAuthenticated ? <Home /> : <Navigate to="/login" replace />} />
             <Route path="/r/:subredditName" element={isAuthenticated ? <SubredditPage /> : <Navigate to="/login" replace />} />
             <Route path="/login" element={!isAuthenticated ? <Login onLogin={handleLogin} /> : <Navigate to="/" replace />} />
-            <Route
-              path="/register"
-              element={!isAuthenticated ? <Register onRegister={() => setIsAuthenticated(true)} /> : <Navigate to="/" replace />}
-            />
           </Routes>
         </div>
       </div>
