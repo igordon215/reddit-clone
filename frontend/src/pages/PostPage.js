@@ -57,7 +57,8 @@ const PostPage = () => {
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         <p>
-          Posted by {post.user.login} in <Link to={`/r/${post.subreddit.name}`}>{post.subreddit.name}</Link>
+          Posted by {post.user ? post.user.login : 'Unknown'} in{' '}
+          {post.subreddit ? <Link to={`/r/${post.subreddit.name}`}>{post.subreddit.name}</Link> : 'Unknown Subreddit'}
         </p>
         <div className="vote-buttons">
           <button onClick={() => handleVote('UPVOTE')}>Upvote</button>
@@ -70,7 +71,7 @@ const PostPage = () => {
         {comments.map(comment => (
           <div key={comment.id} className="comment">
             <p>{comment.content}</p>
-            <p>Comment by {comment.user.login}</p>
+            <p>Comment by {comment.user ? comment.user.login : 'Unknown'}</p>
           </div>
         ))}
       </div>
