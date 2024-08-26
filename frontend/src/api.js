@@ -129,20 +129,15 @@ export const createPost = async postData => {
 
 export const voteOnPost = async (postId, voteType) => {
   try {
-    console.log(`Voting on post ${postId} with vote type ${voteType}`);
     const response = await fetch(`${API_BASE_URL}/votes`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify({ postId, voteType }),
     });
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error(`Error voting on post. Status: ${response.status}, Response: ${errorText}`);
       throw new Error(`HTTP error! status: ${response.status}`);
     }
-    const data = await response.json();
-    console.log('Vote response:', data);
-    return data;
+    return await response.json();
   } catch (error) {
     console.error('Error voting on post:', error);
     throw error;
