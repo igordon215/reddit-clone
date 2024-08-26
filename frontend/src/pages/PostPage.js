@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchPost, fetchComments, createComment } from '../api';
+import { useParams, Link } from 'react-router-dom';
+import { fetchPost, fetchComments, createComment, voteOnPost } from '../api';
 
 const PostPage = () => {
   const { postId } = useParams();
@@ -37,6 +37,16 @@ const PostPage = () => {
     }
   };
 
+  const handleVote = async voteType => {
+    try {
+      await voteOnPost(postId, voteType);
+      const updatedPost = await fetchPost(postId);
+      setPost(updatedPost);
+    } catch (err) {
+      setError('Failed to vote on post');
+    }
+  };
+
   if (loading) return <div>Loading...</div>;
   if (error) return <div>{error}</div>;
   if (!post) return <div>Post not found</div>;
@@ -47,9 +57,13 @@ const PostPage = () => {
         <h2>{post.title}</h2>
         <p>{post.content}</p>
         <p>
-          Posted by {post.user.login} in {post.subreddit.name}
+          Posted by {post.user.login} in <Link to={`/r/${post.subreddit.name}`}>{post.subreddit.name}</Link>
         </p>
-        <p>Votes: {post.voteCount}</p>
+        <div className="vote-buttons">
+          <button onClick={() => handleVote('UPVOTE')}>Upvote</button>
+          <span>{post.voteCount}</span>
+          <button onClick={() => handleVote('DOWNVOTE')}>Downvote</button>
+        </div>
       </div>
       <div className="comments">
         <h3>Comments</h3>
@@ -60,7 +74,7 @@ const PostPage = () => {
           </div>
         ))}
       </div>
-      <form onSubmit={handleSubmitComment}>
+      <form onSubmit={handleSubmitComment} className="comment-form">
         <textarea value={newComment} onChange={e => setNewComment(e.target.value)} placeholder="Write a comment..." required />
         <button type="submit">Add Comment</button>
       </form>

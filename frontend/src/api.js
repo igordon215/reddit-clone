@@ -24,7 +24,6 @@ const getHeaders = () => {
 
 export const login = async (username, password) => {
   try {
-    console.log('Attempting login with:', { username, password });
     const response = await fetch(`${API_BASE_URL}/authenticate`, {
       method: 'POST',
       headers: {
@@ -32,17 +31,12 @@ export const login = async (username, password) => {
       },
       body: JSON.stringify({ username, password, rememberMe: true }),
     });
-    console.log('Login response status:', response.status);
-    console.log('Login response headers:', response.headers);
-    const responseText = await response.text();
-    console.log('Login response text:', responseText);
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}, response: ${responseText}`);
+      throw new Error(`HTTP error! status: ${response.status}`);
     }
 
-    const data = JSON.parse(responseText);
-    console.log('Login successful, received data:', data);
+    const data = await response.json();
     setAuthToken(data.id_token);
     return data;
   } catch (error) {
@@ -85,9 +79,25 @@ export const fetchSubreddits = async () => {
   }
 };
 
-export const fetchPostsForSubreddit = async subredditName => {
+export const fetchSubreddit = async subredditName => {
   try {
-    const response = await fetch(`${API_BASE_URL}/posts?subredditName=${subredditName}`, {
+    const response = await fetch(`${API_BASE_URL}/subreddits?name.equals=${subredditName}`, {
+      headers: getHeaders(),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const subreddits = await response.json();
+    return subreddits[0]; // Assuming the API returns an array with one subreddit
+  } catch (error) {
+    console.error('Error fetching subreddit:', error);
+    throw error;
+  }
+};
+
+export const fetchPostsForSubreddit = async subredditId => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/posts?subredditId.equals=${subredditId}`, {
       headers: getHeaders(),
     });
     if (!response.ok) {
@@ -95,7 +105,7 @@ export const fetchPostsForSubreddit = async subredditName => {
     }
     return await response.json();
   } catch (error) {
-    console.error(`Error fetching posts for subreddit ${subredditName}:`, error);
+    console.error(`Error fetching posts for subreddit ${subredditId}:`, error);
     throw error;
   }
 };
@@ -119,10 +129,10 @@ export const createPost = async postData => {
 
 export const voteOnPost = async (postId, voteType) => {
   try {
-    const response = await fetch(`${API_BASE_URL}/posts/${postId}/vote`, {
+    const response = await fetch(`${API_BASE_URL}/votes`, {
       method: 'POST',
       headers: getHeaders(),
-      body: JSON.stringify({ voteType }),
+      body: JSON.stringify({ postId, voteType }),
     });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -149,9 +159,26 @@ export const fetchPost = async postId => {
   }
 };
 
+export const createSubreddit = async subredditData => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/subreddits`, {
+      method: 'POST',
+      headers: getHeaders(),
+      body: JSON.stringify(subredditData),
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error('Error creating subreddit:', error);
+    throw error;
+  }
+};
+
 export const fetchComments = async postId => {
   try {
-    const response = await fetch(`${API_BASE_URL}/comments?postId=${postId}`, {
+    const response = await fetch(`${API_BASE_URL}/comments?postId.equals=${postId}`, {
       headers: getHeaders(),
     });
     if (!response.ok) {
@@ -177,23 +204,6 @@ export const createComment = async (postId, content) => {
     return await response.json();
   } catch (error) {
     console.error('Error creating comment:', error);
-    throw error;
-  }
-};
-
-export const createSubreddit = async subredditData => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/subreddits`, {
-      method: 'POST',
-      headers: getHeaders(),
-      body: JSON.stringify(subredditData),
-    });
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    return await response.json();
-  } catch (error) {
-    console.error('Error creating subreddit:', error);
     throw error;
   }
 };

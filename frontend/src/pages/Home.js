@@ -43,7 +43,8 @@ const Home = () => {
             </h3>
             <p>{post.content.substring(0, 100)}...</p>
             <p>
-              Posted by {post.user.login} in <Link to={`/r/${post.subreddit.name}`}>{post.subreddit.name}</Link>
+              Posted by {post.user && post.user.login} in{' '}
+              <Link to={`/r/${post.subreddit && post.subreddit.name}`}>{post.subreddit && post.subreddit.name}</Link>
             </p>
             <p>Votes: {post.voteCount}</p>
           </div>
