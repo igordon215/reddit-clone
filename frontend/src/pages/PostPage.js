@@ -10,6 +10,15 @@ const PostPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  const fetchPostData = async () => {
+    try {
+      const postData = await fetchPost(postId);
+      setPost(postData);
+    } catch (err) {
+      setError('Failed to fetch post');
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -40,8 +49,7 @@ const PostPage = () => {
   const handleVote = async voteType => {
     try {
       await voteOnPost(postId, voteType);
-      const updatedPost = await fetchPost(postId);
-      setPost(updatedPost);
+      await fetchPostData();
     } catch (err) {
       setError('Failed to vote on post');
     }
