@@ -21,12 +21,12 @@ const CreateSubreddit = ({ onSubredditCreated }) => {
 
   return (
     <div className="create-subreddit">
-      <h3>Create a New Subreddit</h3>
+      <h3>Create a New SubTidder</h3>
       {error && <p className="error">{error}</p>}
       <form onSubmit={handleSubmit}>
-        <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="Subreddit Name" required />
+        <input type="text" value={name} onChange={e => setName(e.target.value)} placeholder="SubTidder Name" required />
         <textarea value={description} onChange={e => setDescription(e.target.value)} placeholder="Description" required />
-        <button type="submit">Create Subreddit</button>
+        <button type="submit">Create SubTidder</button>
       </form>
     </div>
   );

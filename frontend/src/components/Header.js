@@ -4,14 +4,14 @@ import { Link } from 'react-router-dom';
 const Header = ({ isAuthenticated, onLogout }) => {
   return (
     <header>
-      <h1>Reddit Clone</h1>
+      <h1>Tidder</h1>
       <nav>
         <ul>
           <li>
             <Link to="/">Home</Link>
           </li>
           <li>
-            <Link to="/subreddits">Subreddits</Link>
+            <Link to="/subreddits">SubTidders</Link>
           </li>
           {isAuthenticated ? (
             <li>

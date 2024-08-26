@@ -53,7 +53,7 @@ const Home = () => {
       <div className="sidebar">
         <CreateSubreddit onSubredditCreated={handleSubredditCreated} />
         <div className="subreddits">
-          <h2>Subreddits</h2>
+          <h2>SubTidders</h2>
           <ul>
             {subreddits.map(subreddit => (
               <li key={subreddit.id}>
