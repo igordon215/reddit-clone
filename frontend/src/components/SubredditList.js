@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 const SubredditList = ({ subreddits }) => {
   return (
     <div className="subreddit-list">
-      <h2>Subreddits</h2>
+      <h2>SubTidders</h2>
       <ul>
         {subreddits.map(subreddit => (
           <li key={subreddit.id}>
